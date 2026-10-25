@@ -1,7 +1,7 @@
 {
   "id": "./",
-  "name": "kunota",
-  "short_name": "kunota",
+  "name": "Kunota",
+  "short_name": "Kunota",
   "description": "Nota servis HP, keuangan, dan stok.",
   "start_url": "./",
   "scope": "./",
