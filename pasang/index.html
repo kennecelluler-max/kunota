@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pasang Kunota</title>
+<meta name="description" content="Pasang Kunota di HP Anda: aplikasi nota servis HP, keuangan, dan stok. Satu ketukan, tetap bisa dibuka saat sinyal hilang.">
+<meta property="og:title" content="Pasang Kunota di HP Anda">
+<meta property="og:description" content="Aplikasi nota servis HP, keuangan, dan stok. Ketuk link, lalu Pasang.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kunota.web.id/pasang/">
+<meta property="og:image" content="https://kunota.web.id/icon-512.png">
+<meta name="theme-color" content="#F3F7FB" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B1B2E" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Kunota">
+<style>
+:root{--bg:#F3F7FB;--card:#fff;--ink:#0C4A6E;--ink2:#3F6A86;--line:#D6E4EF;--acc:#0EA5E9;--acc2:#0284C7;--warm:#F97316;--ok:#15803D}
+@media(prefers-color-scheme:dark){:root{--bg:#0B1B2E;--card:#12283F;--ink:#E6F3FC;--ink2:#9DB9CE;--line:#25405B;--acc:#38BDF8;--acc2:#0284C7;--ok:#4ADE80}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{min-height:100vh;min-height:100dvh;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%;display:flex;justify-content:center;padding:max(20px,env(safe-area-inset-top)) 16px max(24px,env(safe-area-inset-bottom))}
+main{width:100%;max-width:420px;margin:auto;display:flex;flex-direction:column;gap:18px}
+.brand{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.brand img{width:96px;height:96px;border-radius:24px;box-shadow:0 10px 28px rgba(2,132,199,.28)}
+.brand h1{margin:6px 0 0;font-size:30px;line-height:1.1;letter-spacing:-.5px}
+.brand h1 b{color:var(--acc2)}
+@media(prefers-color-scheme:dark){.brand h1 b{color:var(--acc)}}
+.brand p{margin:0;color:var(--ink2)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:14px;box-shadow:0 6px 22px rgba(12,74,110,.07)}
+.card h2{margin:0;font-size:18px}
+.card p{margin:0;color:var(--ink2);font-size:15px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:54px;padding:0 20px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:600 17px system-ui,sans-serif;text-decoration:none;text-align:center;cursor:pointer;width:100%}
+.btn.pri{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:0;box-shadow:0 8px 18px rgba(2,132,199,.32)}
+.btn[hidden],.card[hidden],[hidden]{display:none!important}
+ol{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px;color:var(--ink2);font-size:15px}
+ol b{color:var(--ink)}
+.pts{list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;font-size:14px;color:var(--ink2)}
+.pts li:before{content:"\2713";color:var(--ok);font-weight:700;margin-right:8px}
+.ok{color:var(--ok);font-weight:700}
+.small{font-size:13px;color:var(--ink2);text-align:center}
+.small a{color:var(--acc2)}
+@media(prefers-color-scheme:dark){.small a{color:var(--acc)}}
+</style></head><body>
+<main>
+  <div class="brand">
+    <img src="../icon-192.png" width="96" height="96" alt="Ikon Kunota">
+    <h1>Ku<b>nota</b></h1>
+    <p>Nota servis HP, keuangan, dan stok</p>
+  </div>
+
+  <section class="card" id="kartu-utama">
+    <h2 id="judul">Pasang Kunota di HP Anda</h2>
+    <p id="teks">Dipasang seperti aplikasi biasa: ada ikon di layar HP, tampil layar penuh, dan tetap bisa dibuka saat sinyal hilang.</p>
+    <button class="btn pri" id="tbl-pasang" hidden>Pasang Kunota</button>
+    <a class="btn pri" id="tbl-buka" href="../" hidden>Buka Kunota</a>
+    <p class="ok" id="tbl-ok" hidden>Kunota sedang dipasang. Setelah selesai, buka dari ikon di layar HP.</p>
+    <ul class="pts" id="poin">
+      <li>Gratis dicoba, tanpa unduh dari toko aplikasi</li>
+      <li>Data nota tersimpan di HP Anda sendiri</li>
+    </ul>
+  </section>
+
+  <section class="card" id="kartu-chrome" hidden>
+    <h2>Buka dengan Chrome dulu</h2>
+    <p>Link ini terbuka di peramban yang tidak bisa memasang aplikasi. Ketuk tombol di bawah, nanti Chrome terbuka dan tombol Pasang muncul.</p>
+    <a class="btn pri" id="tbl-chrome" href="#">Buka di Chrome</a>
+    <p class="small">Kalau Chrome tidak terbuka, salin link ini lalu tempel di Chrome:<br><b id="alamat"></b></p>
+  </section>
+
+  <section class="card" id="kartu-manual-android" hidden>
+    <h2>Pasang lewat menu</h2>
+    <ol>
+      <li>Ketuk menu <b>&#8942;</b> (tiga titik) di Chrome.</li>
+      <li>Pilih <b>Instal aplikasi</b> (atau <b>Tambahkan ke layar utama</b>).</li>
+      <li>Ketuk <b>Instal</b>, lalu buka Kunota dari ikon di layar HP.</li>
+    </ol>
+  </section>
+
+  <section class="card" id="kartu-ios" hidden>
+    <h2>Pasang di iPhone</h2>
+    <ol>
+      <li id="ios-safari" hidden>Buka link ini di <b>Safari</b> (salin link lalu tempel di Safari).</li>
+      <li>Ketuk tombol <b>Bagikan</b> (kotak dengan panah ke atas) di bawah layar.</li>
+      <li>Pilih <b>Tambah ke Layar Utama</b>, lalu ketuk <b>Tambah</b>.</li>
+      <li>Buka Kunota dari ikon di layar HP.</li>
+    </ol>
+  </section>
+
+  <section class="card" id="kartu-desktop" hidden>
+    <h2>Link ini untuk HP</h2>
+    <p>Buka link ini dari HP Anda. Di komputer, aplikasi bisa dipakai langsung tanpa dipasang.</p>
+  </section>
+
+  <p class="small"><a href="../" id="tbl-langsung">Pakai langsung di peramban, tanpa dipasang</a></p>
+</main>
+<script>
+(function(){
+  var $=function(i){return document.getElementById(i)};
+  var ua=navigator.userAgent||"";
+  var ios=/iPhone|iPad|iPod/i.test(ua)||(/Macintosh/i.test(ua)&&navigator.maxTouchPoints>1);
+  var android=/Android/i.test(ua);
+  var standalone=false;
+  try{standalone=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true;}catch(e){}
+  var evt=null,terpasang=false;
+  var alamat=location.origin+location.pathname;
+  $("alamat").textContent=alamat;
+  var host=location.host+location.pathname+location.search;
+  $("tbl-chrome").href="intent://"+host+"#Intent;scheme="+location.protocol.replace(":","")+";package=com.android.chrome;S.browser_fallback_url="+encodeURIComponent(alamat)+";end";
+
+  function semua(){["kartu-chrome","kartu-manual-android","kartu-ios","kartu-desktop","tbl-pasang","tbl-buka","tbl-ok"].forEach(function(i){$(i).hidden=true;});}
+  function tampil(){
+    semua();
+    if(standalone||terpasang){
+      $("judul").textContent="Kunota sudah terpasang";
+      $("teks").textContent="Aplikasi sudah ada di HP ini.";
+      $("poin").hidden=true;$("tbl-buka").hidden=false;$("tbl-langsung").parentNode.hidden=true;return;
+    }
+    if(evt){$("tbl-pasang").hidden=false;return;}
+    if(ios){
+      $("kartu-ios").hidden=false;
+      var safari=/Safari\//.test(ua)&&!/CriOS|FxiOS|EdgiOS|OPiOS|GSA\//.test(ua);
+      $("ios-safari").hidden=safari;
+      return;
+    }
+    if(android){return;} // menunggu tawaran dari Chrome; kartu cadangan muncul setelah jeda
+    $("kartu-desktop").hidden=false;
+  }
+  function cadangan(){
+    if(evt||terpasang||standalone||!android)return;
+    $("kartu-chrome").hidden=false;$("kartu-manual-android").hidden=false;
+  }
+
+  window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();evt=e;tampil();});
+  window.addEventListener("appinstalled",function(){evt=null;terpasang=true;tampil();$("tbl-ok").hidden=false;});
+  $("tbl-pasang").addEventListener("click",function(){
+    if(!evt)return;
+    var e=evt;evt=null;
+    Promise.resolve().then(function(){return e.prompt();}).then(function(){return e.userChoice;}).then(function(h){
+      if(h&&h.outcome==="accepted"){$("tbl-pasang").hidden=true;$("tbl-ok").hidden=false;}
+      else{evt=e;$("tbl-pasang").hidden=false;}
+    }).catch(function(){tampil();cadangan();});
+  });
+  if("serviceWorker" in navigator){navigator.serviceWorker.register("../sw.js").catch(function(){});}
+  tampil();
+  if(android&&!standalone)setTimeout(cadangan,2500);
+})();
+</script>
+</body></html>
