@@ -1,17 +1,216 @@
 <!doctype html>
 <html lang="id"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Kunota - Nota Servis HP</title>
-<meta name="description" content="Kunota: nota servis HP, keuangan, dan stok dalam satu aplikasi di HP Anda.">
-<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#111F35" media="(prefers-color-scheme: dark)">
-<link rel="manifest" href="manifest.webmanifest">
+<title>Kunota - Nota Servis HP, Keuangan, dan Stok</title>
+<meta name="description" content="Kunota: aplikasi nota servis HP, catatan keuangan, stok, dan supplier di HP Anda. Tanpa iklan, bisa online dan offline, struk bisa dicetak lewat printer Bluetooth.">
+<meta property="og:title" content="Kunota - Nota servis HP di genggaman Anda">
+<meta property="og:description" content="Nota servis, keuangan, stok, dan supplier dalam satu aplikasi. Tanpa iklan, bisa online dan offline.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kunota.web.id/">
+<meta property="og:image" content="https://kunota.web.id/icon-512.png">
+<meta name="theme-color" content="#F3F7FB" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0B1B2E" media="(prefers-color-scheme: dark)">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Kunota">
-</head><body style="margin:0">
-<div id="nota-service-app" data-gaya="premium" data-backend="https://script.google.com/macros/s/AKfycbxbl5-8BLc6qtGtv7zT8hxmhqrQAnrh6DPUOuUYTJsB_mx_1d6dEyz3bYnmrjLjJIPf/exec" data-owner-wa="08382829723" data-sw="sw.js" data-enc="a-a96e0e2f0d.bin" data-enc-master="m-506aec05ad.bin"></div>
-<script src="pemuat.js?v=mvwa4d6n"></script>
+<style>
+:root{--bg:#F3F7FB;--card:#fff;--ink:#0C4A6E;--ink2:#3F6A86;--line:#D6E4EF;--acc:#0EA5E9;--acc2:#0284C7;--warm:#F97316;--ok:#15803D;--panel:#0B1B2E}
+@media(prefers-color-scheme:dark){:root{--bg:#0B1B2E;--card:#12283F;--ink:#E6F3FC;--ink2:#9DB9CE;--line:#25405B;--acc:#38BDF8;--acc2:#0284C7;--ok:#4ADE80;--panel:#081524}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+.wrap{max-width:520px;margin:0 auto;padding:0 16px}
+section{padding:28px 0}
+h1,h2,h3{margin:0;line-height:1.2}
+h2{font-size:22px;letter-spacing:-.2px;margin-bottom:6px}
+.sub{color:var(--ink2);margin:0 0 16px}
+/* hero */
+.hero{padding:max(24px,env(safe-area-inset-top)) 0 8px;text-align:center}
+.hero img.logo{width:92px;height:92px;border-radius:23px;box-shadow:0 10px 28px rgba(2,132,199,.28)}
+.hero h1{font-size:34px;letter-spacing:-.8px;margin:12px 0 4px}
+.hero h1 b{color:var(--acc2)}
+@media(prefers-color-scheme:dark){.hero h1 b{color:var(--acc)}}
+.hero .tag{font-size:19px;font-weight:600;margin:0 0 8px}
+.hero p.lead{color:var(--ink2);margin:0 auto 18px;max-width:34ch}
+.btns{display:flex;flex-direction:column;gap:10px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 18px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:600 16px system-ui,sans-serif;text-decoration:none;text-align:center}
+.btn.pri{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:0;box-shadow:0 8px 18px rgba(2,132,199,.3)}
+.btn.wa{border-color:var(--ok);color:var(--ok)}
+.btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0 0;padding:0;list-style:none}
+.badges li{font-size:13px;padding:5px 11px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--ink2)}
+/* slide */
+.slider{position:relative;background:var(--panel);border-radius:22px;padding:14px 0 12px;overflow:hidden}
+.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.track::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;scroll-snap-align:center;margin:0;display:flex;flex-direction:column;align-items:center;gap:10px;padding:0 12px}
+.slide .shot{height:430px;display:flex;align-items:center;justify-content:center;width:100%}
+.slide img{max-height:430px;max-width:100%;width:auto;height:auto;display:block;border-radius:24px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.slide figcaption{color:#C7DCEC;font-size:14px;text-align:center;min-height:42px;max-width:36ch}
+.nav{position:absolute;top:210px;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(4px)}
+.nav svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.nav.prev{left:8px}.nav.next{right:8px}
+.dots{display:flex;gap:8px;justify-content:center;padding-top:2px}
+.dots button{width:10px;height:10px;border-radius:50%;border:0;padding:0;background:rgba(255,255,255,.3);cursor:pointer}
+.dots button[aria-current=true]{background:var(--acc);width:26px;border-radius:6px}
+/* kelebihan */
+.grid{display:grid;grid-template-columns:1fr;gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;gap:14px;align-items:flex-start}
+.card .ic{flex:none;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:color-mix(in srgb,var(--acc) 16%,transparent);color:var(--acc2)}
+@media(prefers-color-scheme:dark){.card .ic{color:var(--acc)}}
+.card .ic svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.card h3{font-size:16px;margin-bottom:3px}
+.card p{margin:0;color:var(--ink2);font-size:14.5px}
+.card.hi{border-color:color-mix(in srgb,var(--ok) 50%,var(--line))}
+.card.hi .ic{background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)}
+/* langkah */
+.steps{counter-reset:s;display:flex;flex-direction:column;gap:12px;padding:0;margin:0;list-style:none}
+.steps li{counter-increment:s;display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px}
+.steps li:before{content:counter(s);flex:none;width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;font-weight:700;display:grid;place-items:center}
+.steps b{display:block}
+.steps span{color:var(--ink2);font-size:14.5px}
+/* paket */
+.pkg{display:grid;grid-template-columns:1fr;gap:12px}
+.pkg .card{flex-direction:column;gap:8px}
+.pkg h3{font-size:18px}
+.pkg ul{margin:0;padding-left:18px;color:var(--ink2);font-size:14.5px;display:flex;flex-direction:column;gap:4px}
+/* faq */
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin-bottom:10px}
+summary{font-weight:600;cursor:pointer;min-height:28px}
+details p{margin:8px 0 2px;color:var(--ink2);font-size:14.5px}
+/* penutup */
+.cta{text-align:center;padding:30px 0 40px}
+.cta h2{margin-bottom:12px}
+footer{text-align:center;color:var(--ink2);font-size:13px;padding:0 16px max(28px,env(safe-area-inset-bottom))}
+footer a{color:var(--acc2)}
+@media(prefers-color-scheme:dark){footer a{color:var(--acc)}}
+@media(min-width:560px){.btns{flex-direction:row}.btns .btn{flex:1}.grid{grid-template-columns:1fr 1fr}.pkg{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.masuk #perkenalan{display:none}</style><script>try{if(localStorage.getItem("kunota-masuk"))document.documentElement.classList.add("masuk")}catch(e){}</script></head><body><div id="perkenalan">
+<main class="wrap">
+
+<header class="hero">
+  <img class="logo" src="icon-192.png" width="92" height="92" alt="Ikon Kunota">
+  <h1>Ku<b>nota</b></h1>
+  <p class="tag">Nota servis HP di genggaman Anda</p>
+  <p class="lead">Nota servis, catatan keuangan, stok, dan harga supplier dalam satu aplikasi di HP. Rapi, cepat, dan tetap jalan walau sinyal hilang.</p>
+  <div class="btns">
+    <div id="pemuat" data-slot></div>
+    <a class="btn" href="pasang/">Pasang di HP</a>
+    <a class="btn wa" id="wa-coba" href="#" style="display:none"><svg viewBox="0 0 24 24"><path d="M21 3L3 11l7 3 3 7zM10 14L21 3"/></svg>Minta kode coba lewat WhatsApp</a>
+  </div>
+  <ul class="badges">
+    <li>Tanpa iklan</li><li>Tanpa pelacak pemakaian</li><li>Online dan offline</li><li>Tanpa unduh dari toko aplikasi</li>
+  </ul>
+</header>
+
+<section aria-labelledby="h-foto">
+  <h2 id="h-foto">Lihat isinya</h2>
+  <p class="sub">Geser untuk melihat tampilan aplikasi.</p>
+  <div class="slider" role="region" aria-roledescription="carousel" aria-label="Tampilan aplikasi Kunota" id="slider">
+    <div class="track" id="track" tabindex="0">
+      <figure class="slide" aria-roledescription="slide" aria-label="1 dari 3">
+        <div class="shot"><img src="foto/foto-dashboard.webp" width="516" height="1005" alt="Ringkasan harian Kunota dalam mode gelap: saldo, kas masuk dan keluar, status nota"></div>
+        <figcaption>Ringkasan harian: saldo, kas masuk dan keluar, nota yang sedang dikerjakan. Tersedia mode gelap.</figcaption>
+      </figure>
+      <figure class="slide" aria-roledescription="slide" aria-label="2 dari 3">
+        <div class="shot"><img src="foto/foto-stok-supplier.webp" width="972" height="1005" alt="Halaman stok produk dan daftar harga supplier"></div>
+        <figcaption>Stok dengan harga beli dan jual, peringatan stok menipis, dan daftar harga dari tiap supplier.</figcaption>
+      </figure>
+      <figure class="slide" aria-roledescription="slide" aria-label="3 dari 3">
+        <div class="shot"><img src="foto/foto-nota.webp" width="516" height="1005" alt="Halaman nota servis berisi pelanggan, kerusakan, perbaikan, biaya, DP, dan sisa bayar"></div>
+        <figcaption>Nota servis lengkap: kerusakan, perbaikan, biaya, DP, sisa bayar. Bisa dikirim ke pelanggan dan dicetak.</figcaption>
+      </figure>
+    </div>
+    <button class="nav prev" id="prev" aria-label="Foto sebelumnya"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button class="nav next" id="next" aria-label="Foto berikutnya"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+    <div class="dots" id="dots" role="group" aria-label="Pilih foto"></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-lebih">
+  <h2 id="h-lebih">Kelebihan Kunota</h2>
+  <p class="sub">Dibuat untuk teknisi dan pemilik konter HP.</p>
+  <div class="grid">
+    <div class="card hi"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div><div><h3>Tanpa iklan, tanpa pelacak</h3><p>Tidak ada iklan dan tidak ada pelacak pemakaian. Aplikasi tidak meminta akses kamera, kontak, atau lokasi.</p></div></div>
+    <div class="card hi"><div class="ic"><svg viewBox="0 0 24 24"><path d="M2 12a10 10 0 0120 0M5.5 12a6.5 6.5 0 0113 0M9 12a3 3 0 016 0"/><path d="M12 12v.01M3 21l18-18"/></svg></div><div><h3>Online dan offline</h3><p>Bisa dibuka dan dipakai walau tanpa sinyal. Saat tersambung internet, cadangan dan nota online ikut terkirim.</p></div></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v4h4M9 12h6M9 16h6"/></svg></div><div><h3>Nota servis lengkap</h3><p>Nama pelanggan, merek dan tipe HP, kronologi, kerusakan, perbaikan, biaya, DP, harga coret, PIN atau pola, kelengkapan, dan garansi.</p></div></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M7 9V3h10v6M7 17H5a2 2 0 01-2-2v-4a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2h-2M7 14h10v7H7z"/></svg></div><div><h3>Cetak dan kirim struk</h3><p>Struk bisa dicetak lewat aplikasi printer Bluetooth, dan nota dikirim ke pelanggan lewat WhatsApp.</p></div></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 012-2h13v3M3 7v11a2 2 0 002 2h14a2 2 0 002-2V9a1 1 0 00-1-1H5a2 2 0 01-2-1zM16 14h2"/></svg></div><div><h3>Keuangan dan laba</h3><p>Kas masuk dan keluar, saldo, serta laporan harian, mingguan, bulanan, dan tahunan lengkap dengan grafik.</p></div></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 8l9-5 9 5v8l-9 5-9-5zM3 8l9 5 9-5M12 13v8"/></svg></div><div><h3>Stok dan supplier</h3><p>Catat stok dengan harga beli dan jual, pantau yang menipis, dan simpan daftar harga dari berbagai supplier.</p></div></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></div><div><h3>Data tetap milik Anda</h3><p>Data toko disimpan di HP Anda. Untuk toko berlisensi, cadangan online dikunci dengan sandi Anda, dan bisa dipulihkan di HP baru.</p></div></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></div><div><h3>Seperti aplikasi biasa</h3><p>Dipasang dari peramban ke layar utama HP. Tampil layar penuh dan tidak perlu mengunduh dari toko aplikasi.</p></div></div>
+    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/></svg></div><div><h3>Nota online untuk pelanggan</h3><p>Untuk toko berlisensi: pelanggan bisa melihat, mengunduh, dan mencetak notanya lewat tautan selama masa garansi.</p></div></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-mulai">
+  <h2 id="h-mulai">Cara mulai</h2>
+  <p class="sub">Tiga langkah, sekitar dua menit.</p>
+  <ol class="steps">
+    <li><div><b>Minta kode coba</b><span>Ketuk tombol WhatsApp di atas. Kode coba dikirim oleh pembuat aplikasi.</span></div></li>
+    <li><div><b>Pasang di HP</b><span>Buka halaman Pasang di HP, lalu ketuk Pasang. Atau langsung buka Kunota di peramban.</span></div></li>
+    <li><div><b>Masukkan kode</b><span>Masukkan kode coba, isi identitas toko, lalu mulai membuat nota.</span></div></li>
+  </ol>
+</section>
+
+<section aria-labelledby="h-paket">
+  <h2 id="h-paket">Coba dulu, lisensi kemudian</h2>
+  <p class="sub">Harga dan paket langganan hubungi pembuat lewat WhatsApp.</p>
+  <div class="pkg">
+    <div class="card"><h3>Masa coba</h3><ul><li>Gratis selama masa coba</li><li>Sampai 2 HP</li><li>5 produk stok (10 pcs per produk)</li><li>20 nota per hari</li></ul></div>
+    <div class="card hi"><h3>Lisensi toko</h3><ul><li>Stok, supplier, dan nota tanpa batas harian</li><li>Cadangan online dan pulihkan di HP baru</li><li>Nota online untuk pelanggan</li><li>Sampai 5 HP</li></ul></div>
+  </div>
+</section>
+
+<section aria-labelledby="h-tanya">
+  <h2 id="h-tanya">Pertanyaan umum</h2>
+  <details><summary>Apakah harus ada internet?</summary><p>Tidak. Setelah dibuka dan dipasang, Kunota bisa dipakai tanpa sinyal. Internet diperlukan untuk mengaktifkan kode, mencadangkan data online, dan mengirim nota online.</p></details>
+  <details><summary>Di mana data saya disimpan?</summary><p>Di HP Anda sendiri. Disarankan mengunduh cadangan file secara berkala. Toko berlisensi juga punya cadangan online yang dikunci dengan sandi buatan Anda, jadi pembuat aplikasi tidak bisa membaca isinya.</p></details>
+  <details><summary>Bagaimana cara mencetak struk?</summary><p>Struk dibagikan ke aplikasi printer Bluetooth di HP Anda, lalu dicetak dari sana.</p></details>
+  <details><summary>HP apa yang cocok?</summary><p>Android dengan Chrome paling disarankan. iPhone bisa dipasang lewat Safari dengan menu Bagikan, lalu Tambah ke Layar Utama.</p></details>
+  <details><summary>Bagaimana kalau masa coba habis?</summary><p>Aplikasi terkunci, tetapi data di HP tidak dihapus. Setelah Anda memasukkan kode lisensi, semua data langsung bisa dipakai lagi.</p></details>
+</section>
+
+<section class="cta" aria-labelledby="h-cta">
+  <h2 id="h-cta">Siap mencoba Kunota?</h2>
+  <div class="btns">
+    <a class="btn pri" href="#pemuat">Masukkan kode</a>
+    <a class="btn wa" id="wa-coba2" href="#">Minta kode coba lewat WhatsApp</a>
+  </div>
+</section>
+</main>
+<footer>
+  <p>Kunota &middot; Nota servis HP, keuangan, dan stok.<br>&copy; 2026 Kunota. Hak cipta dilindungi.</p>
+  <p>Ada pertanyaan? <a id="wa-tanya" href="#">Hubungi pembuat lewat WhatsApp</a></p>
+</footer>
+<script>
+(function(){
+  var NO="628382829723";
+  function wa(t){return "https://wa.me/"+NO+"?text="+encodeURIComponent(t);}
+  document.getElementById("wa-coba").href=wa("Halo, saya ingin mencoba Kunota. Mohon kirim kode coba untuk toko: ");
+  document.getElementById("wa-coba2").href=wa("Halo, saya ingin mencoba Kunota. Mohon kirim kode coba untuk toko: ");
+  document.getElementById("wa-tanya").href=wa("Halo, saya ingin bertanya tentang Kunota: ");
+  var tr=document.getElementById("track"),sl=tr.children,n=sl.length,dots=document.getElementById("dots"),cur=0,timer=null,user=false;
+  for(var i=0;i<n;i++){(function(i){var b=document.createElement("button");b.type="button";b.setAttribute("aria-label","Foto "+(i+1));b.addEventListener("click",function(){stopAuto();go(i);});dots.appendChild(b);})(i);}
+  function mark(){for(var i=0;i<dots.children.length;i++)dots.children[i].setAttribute("aria-current",String(i===cur));}
+  function go(i){cur=(i+n)%n;tr.scrollTo({left:sl[cur].offsetLeft-tr.offsetLeft,behavior:"smooth"});mark();}
+  var raf=0;
+  tr.addEventListener("scroll",function(){cancelAnimationFrame(raf);raf=requestAnimationFrame(function(){var w=tr.clientWidth||1;var k=Math.round(tr.scrollLeft/w);if(k!==cur&&k>=0&&k<n){cur=k;mark();}});},{passive:true});
+  document.getElementById("prev").addEventListener("click",function(){stopAuto();go(cur-1);});
+  document.getElementById("next").addEventListener("click",function(){stopAuto();go(cur+1);});
+  tr.addEventListener("keydown",function(e){if(e.key==="ArrowLeft"){stopAuto();go(cur-1);e.preventDefault();}if(e.key==="ArrowRight"){stopAuto();go(cur+1);e.preventDefault();}});
+  ["touchstart","pointerdown","focusin","mouseenter"].forEach(function(ev){tr.addEventListener(ev,stopAuto,{passive:true});});
+  function stopAuto(){user=true;if(timer){clearInterval(timer);timer=null;}}
+  var rm=false;try{rm=window.matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){}
+  if(!rm){timer=setInterval(function(){if(!document.getElementById("perkenalan")){clearInterval(timer);return;}if(!user&&!document.hidden)go(cur+1);},5000);}
+  mark();
+})();
+</script>
+</div>
+<div id="nota-service-app" data-gaya="premium" data-backend="https://script.google.com/macros/s/AKfycbxbl5-8BLc6qtGtv7zT8hxmhqrQAnrh6DPUOuUYTJsB_mx_1d6dEyz3bYnmrjLjJIPf/exec" data-owner-wa="08382829723" data-sw="sw.js" data-enc="a-2819d50f9d.bin" data-enc-master="m-b7aaf7f653.bin"></div>
+<script src="pemuat.js?v=mvwnii8r"></script>
 </body></html>

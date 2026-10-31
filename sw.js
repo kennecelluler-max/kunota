@@ -1,6 +1,6 @@
 // Nota Service - cache agar halaman bisa dibuka tanpa internet.
-const CACHE='nota-service-mvwa4d6n';
-const FILES=['./','index.html','pemuat.js?v=mvwa4d6n','a-a96e0e2f0d.bin','m-506aec05ad.bin','manifest.webmanifest','icon-192.png','icon-512.png','favicon.png','apple-touch-icon.png'];
+const CACHE='nota-service-mvwnii8r';
+const FILES=['./','index.html','pemuat.js?v=mvwnii8r','a-2819d50f9d.bin','m-b7aaf7f653.bin','manifest.webmanifest','icon-192.png','icon-512.png','favicon.png','apple-touch-icon.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE&&k.startsWith('nota-service-')).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 self.addEventListener('fetch',e=>{
