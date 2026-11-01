@@ -1,221 +1,527 @@
 <!doctype html>
-<html lang="id"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Kunota - Nota Servis HP, Keuangan, dan Stok</title>
-<meta name="description" content="Kunota: aplikasi nota servis HP, catatan keuangan, stok, dan supplier di HP Anda. Tanpa iklan, bisa online dan offline, struk bisa dicetak lewat printer Bluetooth.">
-<meta property="og:title" content="Kunota - Nota servis HP di genggaman Anda">
-<meta property="og:description" content="Nota servis, keuangan, stok, dan supplier dalam satu aplikasi. Tanpa iklan, bisa online dan offline.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://kunota.web.id/">
-<meta property="og:image" content="https://kunota.web.id/icon-512.png">
-<meta name="theme-color" content="#F3F7FB" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0B1B2E" media="(prefers-color-scheme: dark)">
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="manifest" href="manifest.webmanifest">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Kunota">
-<style>
-:root{--bg:#F3F7FB;--card:#fff;--ink:#0C4A6E;--ink2:#3F6A86;--line:#D6E4EF;--acc:#0EA5E9;--acc2:#0284C7;--warm:#F97316;--ok:#15803D;--panel:#0B1B2E}
-@media(prefers-color-scheme:dark){:root{--bg:#0B1B2E;--card:#12283F;--ink:#E6F3FC;--ink2:#9DB9CE;--line:#25405B;--acc:#38BDF8;--acc2:#0284C7;--ok:#4ADE80;--panel:#081524}}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
-.wrap{max-width:520px;margin:0 auto;padding:0 16px}
-section{padding:28px 0}
-h1,h2,h3{margin:0;line-height:1.2}
-h2{font-size:22px;letter-spacing:-.2px;margin-bottom:6px}
-.sub{color:var(--ink2);margin:0 0 16px}
-/* hero */
-.hero{padding:max(24px,env(safe-area-inset-top)) 0 8px;text-align:center}
-.hero img.logo{width:92px;height:92px;border-radius:23px;box-shadow:0 10px 28px rgba(2,132,199,.28)}
-.hero h1{font-size:34px;letter-spacing:-.8px;margin:12px 0 4px}
-.hero h1 b{color:var(--acc2)}
-@media(prefers-color-scheme:dark){.hero h1 b{color:var(--acc)}}
-.hero .tag{font-size:19px;font-weight:600;margin:0 0 8px}
-.hero p.lead{color:var(--ink2);margin:0 auto 18px;max-width:34ch}
-.btns{display:flex;flex-direction:column;gap:10px}
-.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 18px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:600 16px system-ui,sans-serif;text-decoration:none;text-align:center}
-.btn.pri{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;border:0;box-shadow:0 8px 18px rgba(2,132,199,.3)}
-.btn.wa{border-color:var(--ok);color:var(--ok)}
-.btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0 0;padding:0;list-style:none}
-.badges li{font-size:13px;padding:5px 11px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--ink2)}
-/* slide */
-.slider{position:relative;background:var(--panel);border-radius:22px;padding:14px 0 12px;overflow:hidden}
-.track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
-.track::-webkit-scrollbar{display:none}
-.slide{flex:0 0 100%;scroll-snap-align:center;margin:0;display:flex;flex-direction:column;align-items:center;gap:10px;padding:0 12px}
-.slide .shot{height:430px;display:flex;align-items:center;justify-content:center;width:100%}
-.slide img{max-height:430px;max-width:100%;width:auto;height:auto;display:block;border-radius:24px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
-.slide figcaption{color:#C7DCEC;font-size:14px;text-align:center;min-height:42px;max-width:36ch}
-.nav{position:absolute;top:210px;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.14);color:#fff;display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(4px)}
-.nav svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
-.nav.prev{left:8px}.nav.next{right:8px}
-.dots{display:flex;gap:8px;justify-content:center;padding-top:2px}
-.dots button{width:10px;height:10px;border-radius:50%;border:0;padding:0;background:rgba(255,255,255,.3);cursor:pointer}
-.dots button[aria-current=true]{background:var(--acc);width:26px;border-radius:6px}
-/* kelebihan */
-.grid{display:grid;grid-template-columns:1fr;gap:12px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;gap:14px;align-items:flex-start}
-.card .ic{flex:none;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;background:color-mix(in srgb,var(--acc) 16%,transparent);color:var(--acc2)}
-@media(prefers-color-scheme:dark){.card .ic{color:var(--acc)}}
-.card .ic svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-.card h3{font-size:16px;margin-bottom:3px}
-.card p{margin:0;color:var(--ink2);font-size:14.5px}
-.card.hi{border-color:color-mix(in srgb,var(--ok) 50%,var(--line))}
-.card.hi .ic{background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok)}
-/* langkah */
-.steps{counter-reset:s;display:flex;flex-direction:column;gap:12px;padding:0;margin:0;list-style:none}
-.steps li{counter-increment:s;display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px}
-.steps li:before{content:counter(s);flex:none;width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;font-weight:700;display:grid;place-items:center}
-.steps b{display:block}
-.steps span{color:var(--ink2);font-size:14.5px}
-/* paket */
-.pkg{display:grid;grid-template-columns:1fr;gap:12px}
-.pkg .card{flex-direction:column;gap:8px}
-.pkg h3{font-size:18px}
-.pkg ul{margin:0;padding-left:18px;color:var(--ink2);font-size:14.5px;display:flex;flex-direction:column;gap:4px}
-/* faq */
-details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin-bottom:10px}
-summary{font-weight:600;cursor:pointer;min-height:28px}
-details p{margin:8px 0 2px;color:var(--ink2);font-size:14.5px}
-/* penutup */
-.cta{text-align:center;padding:30px 0 40px}
-.cta h2{margin-bottom:12px}
-footer{text-align:center;color:var(--ink2);font-size:13px;padding:0 16px max(28px,env(safe-area-inset-bottom))}
-footer a{color:var(--acc2)}
-@media(prefers-color-scheme:dark){footer a{color:var(--acc)}}
-@media(min-width:560px){.btns{flex-direction:row}.btns .btn{flex:1}.grid{grid-template-columns:1fr 1fr}.pkg{grid-template-columns:1fr 1fr}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-.masuk #perkenalan{display:none}</style><script>try{if(localStorage.getItem("kunota-masuk"))document.documentElement.classList.add("masuk")}catch(e){}</script></head><body><div id="perkenalan">
-<main class="wrap">
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <title>Kunota - Nota Servis HP, Keuangan, dan Stok</title>
+    <meta name="description" content="Kunota: aplikasi nota servis HP, catatan keuangan, stok, dan supplier di HP Anda. Tanpa iklan, bisa online dan offline, struk bisa dicetak lewat printer Bluetooth.">
+    
+    <!-- Meta OG -->
+    <meta property="og:title" content="Kunota - Nota servis HP di genggaman Anda">
+    <meta property="og:description" content="Nota servis, keuangan, stok, dan supplier dalam satu aplikasi. Tanpa iklan, bisa online dan offline.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kunota.web.id/">
+    <meta property="og:image" content="https://kunota.web.id/icon-512.png">
+    
+    <meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Kunota">
 
-<header class="hero">
-  <img class="logo" src="icon-192.png" width="92" height="92" alt="Ikon Kunota">
-  <h1>Ku<b>nota</b></h1>
-  <p class="tag">Nota di genggaman Anda</p>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <div class="btns">
-    <div id="pemuat" data-slot></div>
-    <a class="btn wa" id="wa-coba" href="#" style="display:none"><svg viewBox="0 0 24 24"><path d="M21 3L3 11l7 3 3 7zM10 14L21 3"/></svg>Minta kode coba lewat WhatsApp</a>
-  </div>
-  
-</header>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'media',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            900: '#0c4a6e',
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
 
-<section aria-labelledby="h-foto">
-  <h2 id="h-foto">Lihat isinya</h2>
-  <p class="sub">Geser untuk melihat tampilan aplikasi.</p>
-  <div class="slider" role="region" aria-roledescription="carousel" aria-label="Tampilan aplikasi Kunota" id="slider">
-    <div class="track" id="track" tabindex="0">
-      <figure class="slide" aria-roledescription="slide" aria-label="1 dari 5">
-        <div class="shot"><img src="foto/foto-dashboard.webp" width="516" height="1005" alt="Ringkasan harian Kunota dalam mode gelap: saldo, kas masuk dan keluar, status nota"></div>
-        <figcaption>Ringkasan harian: saldo, kas masuk dan keluar, nota yang sedang dikerjakan. Tersedia mode gelap.</figcaption>
-      </figure>
-      <figure class="slide" aria-roledescription="slide" aria-label="2 dari 5">
-        <div class="shot"><img src="foto/foto-stok-supplier.webp" width="972" height="1005" alt="Halaman stok produk dan daftar harga supplier"></div>
-        <figcaption>Stok dengan harga beli dan jual, peringatan stok menipis, dan daftar harga dari tiap supplier.</figcaption>
-      </figure>
-      <figure class="slide" aria-roledescription="slide" aria-label="3 dari 5">
-        <div class="shot"><img src="foto/foto-nota.webp" width="516" height="1005" alt="Halaman nota servis berisi pelanggan, kerusakan, perbaikan, biaya, DP, dan sisa bayar"></div>
-        <figcaption>Nota servis lengkap. Nota update otomatis ke pelanggan. Bisa dikirim ke pelanggan dan dicetak.</figcaption>
-      </figure>
-      <figure class="slide" aria-roledescription="slide" aria-label="4 dari 5">
-        <div class="shot"><img src="foto/foto-nota-pelanggan.webp" width="516" height="1005" alt="Contoh nota yang dilihat pelanggan lewat tautan: nama toko, status pengerjaan, kerusakan, biaya, DP, dan sisa bayar"></div>
-        <figcaption>Nota yang dilihat pelanggan lewat tautan. Status, biaya, DP, dan sisa bayar ikut berubah saat Anda memperbarui nota. (Data contoh)</figcaption>
-      </figure>
-      <figure class="slide" aria-roledescription="slide" aria-label="5 dari 5">
-        <div class="shot"><img src="foto/foto-master.webp" width="445" height="1005" alt="Layar Master untuk pemilik beberapa toko: total aset, kas masuk dan keluar, dan daftar cabang dengan statusnya"></div>
-        <figcaption>Layar Master untuk pemilik lebih dari satu toko: total aset, kas masuk dan keluar, dan status tiap cabang dalam satu layar. (Data contoh)</figcaption>
-      </figure>
+    <style>
+        /* Sembunyikan perkenalan jika user sudah masuk - LOGIKA ORIGINAL */
+        .masuk #perkenalan { display: none !important; }
+        
+        /* Utilitas Custom */
+        html { scroll-behavior: smooth; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Custom Slider Dots Styling (Karena di-generate via JS original) */
+        #dots button {
+            width: 10px; height: 10px; border-radius: 9999px; background-color: rgba(148, 163, 184, 0.4);
+            transition: all 0.3s ease;
+        }
+        .dark #dots button { background-color: rgba(148, 163, 184, 0.3); }
+        #dots button[aria-current="true"] {
+            background-color: #0ea5e9; width: 24px; border-radius: 6px;
+        }
+        
+        /* Glass Effect */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+
+    <!-- Script Pemeriksa Sesi Original -->
+    <script>
+        try {
+            if (localStorage.getItem("kunota-masuk")) document.documentElement.classList.add("masuk")
+        } catch (e) {}
+    </script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 antialiased overflow-x-hidden">
+
+<div id="perkenalan" class="relative">
+    
+    <!-- Background Ornaments -->
+    <div class="absolute top-0 inset-x-0 flex justify-center overflow-hidden pointer-events-none z-0">
+        <div class="w-[500px] h-[500px] bg-brand-400/20 dark:bg-brand-500/10 rounded-full blur-3xl animate-blob"></div>
+        <div class="w-[400px] h-[400px] bg-indigo-400/20 dark:bg-indigo-500/10 rounded-full blur-3xl animate-blob animation-delay-2000 absolute top-20 right-20"></div>
     </div>
-    <button class="nav prev" id="prev" aria-label="Foto sebelumnya"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
-    <button class="nav next" id="next" aria-label="Foto berikutnya"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
-    <div class="dots" id="dots" role="group" aria-label="Pilih foto"></div>
-  </div>
-</section>
 
-<section aria-labelledby="h-lebih">
-  <h2 id="h-lebih">Kelebihan Kunota</h2>
-  <p class="sub">Dibuat untuk teknisi dan pemilik konter HP.</p>
-  <div class="grid">
-    <div class="card hi"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div><div><h3>Tanpa iklan, tanpa pelacak</h3><p>Tidak ada iklan dan tidak ada pelacak pemakaian. Aplikasi tidak meminta akses kamera, kontak, atau lokasi.</p></div></div>
-    <div class="card hi"><div class="ic"><svg viewBox="0 0 24 24"><path d="M2 12a10 10 0 0120 0M5.5 12a6.5 6.5 0 0113 0M9 12a3 3 0 016 0"/><path d="M12 12v.01M3 21l18-18"/></svg></div><div><h3>Online dan offline</h3><p>Bisa dibuka dan dipakai walau tanpa sinyal. Saat tersambung internet, cadangan dan nota online ikut terkirim.</p></div></div>
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6zM14 3v4h4M9 12h6M9 16h6"/></svg></div><div><h3>Nota servis lengkap</h3><p>Nama pelanggan, merek dan tipe HP, kronologi, kerusakan, perbaikan, biaya, DP, harga coret, PIN atau pola, kelengkapan, dan garansi.</p></div></div>
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M7 9V3h10v6M7 17H5a2 2 0 01-2-2v-4a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2h-2M7 14h10v7H7z"/></svg></div><div><h3>Cetak dan kirim struk</h3><p>Struk bisa dicetak lewat aplikasi printer Bluetooth, dan nota dikirim ke pelanggan lewat WhatsApp.</p></div></div>
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 012-2h13v3M3 7v11a2 2 0 002 2h14a2 2 0 002-2V9a1 1 0 00-1-1H5a2 2 0 01-2-1zM16 14h2"/></svg></div><div><h3>Keuangan dan laba</h3><p>Kas masuk dan keluar, saldo, serta laporan harian, mingguan, bulanan, dan tahunan lengkap dengan grafik.</p></div></div>
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 8l9-5 9 5v8l-9 5-9-5zM3 8l9 5 9-5M12 13v8"/></svg></div><div><h3>Stok dan supplier</h3><p>Catat stok dengan harga beli dan jual, pantau yang menipis, dan simpan daftar harga dari berbagai supplier.</p></div></div>
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></div><div><h3>Data tetap milik Anda</h3><p>Data toko disimpan di HP Anda. Untuk toko berlisensi, cadangan online dikunci dengan sandi Anda, dan bisa dipulihkan di HP baru.</p></div></div>
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></div><div><h3>Seperti aplikasi biasa</h3><p>Dipasang dari peramban ke layar utama HP. Tampil layar penuh dan tidak perlu mengunduh dari toko aplikasi.</p></div></div>
-    <div class="card"><div class="ic"><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/></svg></div><div><h3>Nota online untuk pelanggan</h3><p>Untuk toko berlisensi: pelanggan bisa melihat, mengunduh, dan mencetak notanya lewat tautan selama masa garansi.</p></div></div>
-  </div>
-</section>
+    <main class="max-w-3xl mx-auto px-5 relative z-10">
 
-<section aria-labelledby="h-mulai">
-  <h2 id="h-mulai">Cara mulai</h2>
-  <p class="sub">Tiga langkah, sekitar dua menit.</p>
-  <ol class="steps">
-    <li><div><b>Minta kode coba</b><span>Ketuk tombol WhatsApp di atas. Kode coba dikirim oleh pembuat aplikasi.</span></div></li>
-    <li><div><b>Pasang di HP</b><span>Buka halaman Pasang di HP, lalu ketuk Pasang. Atau langsung buka Kunota di peramban.</span></div></li>
-    <li><div><b>Masukkan kode</b><span>Masukkan kode coba, isi identitas toko, lalu mulai membuat nota.</span></div></li>
-  </ol>
-</section>
+        <!-- Hero Section -->
+        <header class="pt-16 pb-12 text-center flex flex-col items-center">
+            <div class="relative mb-6">
+                <div class="absolute inset-0 bg-brand-500 blur-xl opacity-30 dark:opacity-40 rounded-full"></div>
+                <img class="relative w-28 h-28 rounded-3xl shadow-xl border border-white/50 dark:border-white/10 object-cover" src="icon-192.png" alt="Ikon Kunota">
+            </div>
+            
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-3 text-slate-900 dark:text-white">
+                Ku<span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-indigo-600 dark:from-brand-400 dark:to-indigo-400">nota</span>
+            </h1>
+            <p class="text-lg md:text-xl font-medium text-slate-600 dark:text-slate-400 mb-8 max-w-md mx-auto">
+                Nota servis, keuangan, dan stok di genggaman Anda.
+            </p>
 
-<section aria-labelledby="h-paket">
-  <h2 id="h-paket">Coba dulu, lisensi kemudian</h2>
-  <p class="sub">Info lisensi tanya pembuat lewat WhatsApp.</p>
-  <div class="pkg">
-    <div class="card"><h3>Masa coba</h3><ul><li>Gratis selama masa coba</li><li>Sampai 2 HP</li><li>5 produk stok (10 pcs per produk)</li><li>20 nota per hari</li></ul></div>
-    <div class="card hi"><h3>Lisensi toko</h3><ul><li>Stok, supplier, dan nota tanpa batas harian</li><li>Cadangan online dan pulihkan di HP baru</li><li>Nota online untuk pelanggan</li><li>Sampai 5 HP</li></ul></div>
-  </div>
-</section>
+            <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
+                <div id="pemuat" data-slot class="w-full sm:w-auto"></div>
+                <a class="flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold bg-white dark:bg-slate-800 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900/50 shadow-sm hover:shadow-md hover:border-emerald-300 dark:hover:border-emerald-700 transition-all duration-300 w-full sm:w-auto" id="wa-coba" href="#" style="display:none">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3L3 11l7 3 3 7zM10 14L21 3"/></svg>
+                    Minta kode coba
+                </a>
+            </div>
+        </header>
 
-<section aria-labelledby="h-tanya">
-  <h2 id="h-tanya">Pertanyaan umum</h2>
-  <details><summary>Apakah harus ada internet?</summary><p>Tidak. Setelah dibuka dan dipasang, Kunota bisa dipakai tanpa sinyal. Internet diperlukan untuk mengaktifkan kode, mencadangkan data online, dan mengirim nota online.</p></details>
-  <details><summary>Di mana data saya disimpan?</summary><p>Di HP Anda sendiri. Disarankan mengunduh cadangan file secara berkala. Toko berlisensi juga punya cadangan online yang dikunci dengan sandi buatan Anda, jadi pembuat aplikasi tidak bisa membaca isinya.</p></details>
-  <details><summary>Bagaimana cara mencetak struk?</summary><p>Struk dibagikan ke aplikasi printer Bluetooth di HP Anda, lalu dicetak dari sana.</p></details>
-  <details><summary>HP apa yang cocok?</summary><p>Android dengan Chrome paling disarankan. iPhone bisa dipasang lewat Safari dengan menu Bagikan, lalu Tambah ke Layar Utama.</p></details>
-  <details><summary>Bagaimana kalau masa coba habis?</summary><p>Aplikasi terkunci, tetapi data di HP tidak dihapus. Setelah Anda memasukkan kode lisensi, semua data langsung bisa dipakai lagi.</p></details>
-</section>
+        <!-- Slider Section -->
+        <section aria-labelledby="h-foto" class="py-12">
+            <div class="text-center mb-8">
+                <h2 id="h-foto" class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Lihat isinya</h2>
+                <p class="text-slate-500 dark:text-slate-400">Geser untuk melihat tampilan aplikasi.</p>
+            </div>
+            
+            <div class="relative bg-slate-900 dark:bg-slate-950 rounded-[2rem] p-4 sm:p-6 shadow-2xl border border-slate-800" role="region" aria-roledescription="carousel" aria-label="Tampilan aplikasi Kunota" id="slider">
+                <div class="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4 pb-4" id="track" tabindex="0">
+                    
+                    <!-- Slide 1 -->
+                    <figure class="snap-center shrink-0 w-full flex flex-col items-center slide" aria-roledescription="slide" aria-label="1 dari 5">
+                        <div class="h-[450px] md:h-[500px] w-full flex items-center justify-center mb-4">
+                            <img src="foto/foto-dashboard.webp" alt="Ringkasan harian Kunota" class="max-h-full max-w-full object-contain rounded-2xl shadow-lg border border-slate-800">
+                        </div>
+                        <figcaption class="text-slate-300 text-sm text-center max-w-xs">Ringkasan harian: saldo, kas, nota yang dikerjakan. Tersedia mode gelap.</figcaption>
+                    </figure>
 
-<section class="cta" aria-labelledby="h-cta">
-  <h2 id="h-cta">Siap mencoba Kunota?</h2>
-  <div class="btns">
-    <a class="btn pri" href="#pemuat">Masukkan kode</a>
-    <a class="btn wa" id="wa-coba2" href="#">Minta kode coba lewat WhatsApp</a>
-  </div>
-</section>
-</main>
-<footer>
-  <p>Kunota &middot; Nota servis HP, keuangan, dan stok.<br>&copy; 2026 Kunota. Hak cipta dilindungi.</p>
-  <p>Ada pertanyaan? <a id="wa-tanya" href="#">Hubungi pembuat lewat WhatsApp</a></p>
-</footer>
-<script>
-(function(){
-  var NO="628382829723";
-  function wa(t){return "https://wa.me/"+NO+"?text="+encodeURIComponent(t);}
-  document.getElementById("wa-coba").href=wa("Halo, saya ingin mencoba Kunota. Mohon kirim kode coba untuk toko: ");
-  document.getElementById("wa-coba2").href=wa("Halo, saya ingin mencoba Kunota. Mohon kirim kode coba untuk toko: ");
-  document.getElementById("wa-tanya").href=wa("Halo, saya ingin bertanya tentang Kunota: ");
-  var tr=document.getElementById("track"),sl=tr.children,n=sl.length,dots=document.getElementById("dots"),cur=0,timer=null,user=false;
-  for(var i=0;i<n;i++){(function(i){var b=document.createElement("button");b.type="button";b.setAttribute("aria-label","Foto "+(i+1));b.addEventListener("click",function(){stopAuto();go(i);});dots.appendChild(b);})(i);}
-  function mark(){for(var i=0;i<dots.children.length;i++)dots.children[i].setAttribute("aria-current",String(i===cur));}
-  function go(i){cur=(i+n)%n;tr.scrollTo({left:sl[cur].offsetLeft-tr.offsetLeft,behavior:"smooth"});mark();}
-  var raf=0;
-  tr.addEventListener("scroll",function(){cancelAnimationFrame(raf);raf=requestAnimationFrame(function(){var w=tr.clientWidth||1;var k=Math.round(tr.scrollLeft/w);if(k!==cur&&k>=0&&k<n){cur=k;mark();}});},{passive:true});
-  document.getElementById("prev").addEventListener("click",function(){stopAuto();go(cur-1);});
-  document.getElementById("next").addEventListener("click",function(){stopAuto();go(cur+1);});
-  tr.addEventListener("keydown",function(e){if(e.key==="ArrowLeft"){stopAuto();go(cur-1);e.preventDefault();}if(e.key==="ArrowRight"){stopAuto();go(cur+1);e.preventDefault();}});
-  ["touchstart","pointerdown","focusin","mouseenter"].forEach(function(ev){tr.addEventListener(ev,stopAuto,{passive:true});});
-  function stopAuto(){user=true;if(timer){clearInterval(timer);timer=null;}}
-  var rm=false;try{rm=window.matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){}
-  if(!rm){timer=setInterval(function(){if(!document.getElementById("perkenalan")){clearInterval(timer);return;}if(!user&&!document.hidden)go(cur+1);},5000);}
-  mark();
-})();
-</script>
+                    <!-- Slide 2 -->
+                    <figure class="snap-center shrink-0 w-full flex flex-col items-center slide" aria-roledescription="slide" aria-label="2 dari 5">
+                        <div class="h-[450px] md:h-[500px] w-full flex items-center justify-center mb-4">
+                            <img src="foto/foto-stok-supplier.webp" alt="Halaman stok produk" class="max-h-full max-w-full object-contain rounded-2xl shadow-lg border border-slate-800">
+                        </div>
+                        <figcaption class="text-slate-300 text-sm text-center max-w-xs">Stok dengan harga beli/jual, peringatan, dan daftar harga supplier.</figcaption>
+                    </figure>
+
+                    <!-- Slide 3 -->
+                    <figure class="snap-center shrink-0 w-full flex flex-col items-center slide" aria-roledescription="slide" aria-label="3 dari 5">
+                        <div class="h-[450px] md:h-[500px] w-full flex items-center justify-center mb-4">
+                            <img src="foto/foto-nota.webp" alt="Halaman nota servis" class="max-h-full max-w-full object-contain rounded-2xl shadow-lg border border-slate-800">
+                        </div>
+                        <figcaption class="text-slate-300 text-sm text-center max-w-xs">Nota servis lengkap. Update otomatis, bisa dikirim & dicetak.</figcaption>
+                    </figure>
+
+                    <!-- Slide 4 -->
+                    <figure class="snap-center shrink-0 w-full flex flex-col items-center slide" aria-roledescription="slide" aria-label="4 dari 5">
+                        <div class="h-[450px] md:h-[500px] w-full flex items-center justify-center mb-4">
+                            <img src="foto/foto-nota-pelanggan.webp" alt="Nota pelanggan" class="max-h-full max-w-full object-contain rounded-2xl shadow-lg border border-slate-800">
+                        </div>
+                        <figcaption class="text-slate-300 text-sm text-center max-w-xs">Nota live pelanggan. Status, biaya, DP berubah saat Anda memperbarui nota.</figcaption>
+                    </figure>
+
+                    <!-- Slide 5 -->
+                    <figure class="snap-center shrink-0 w-full flex flex-col items-center slide" aria-roledescription="slide" aria-label="5 dari 5">
+                        <div class="h-[450px] md:h-[500px] w-full flex items-center justify-center mb-4">
+                            <img src="foto/foto-master.webp" alt="Layar Master" class="max-h-full max-w-full object-contain rounded-2xl shadow-lg border border-slate-800">
+                        </div>
+                        <figcaption class="text-slate-300 text-sm text-center max-w-xs">Layar Master: total aset, kas, dan status tiap cabang dalam satu layar.</figcaption>
+                    </figure>
+
+                </div>
+
+                <!-- Navigation Buttons -->
+                <button class="absolute top-[45%] -translate-y-1/2 left-2 sm:left-4 w-10 h-10 rounded-full bg-black/40 backdrop-blur-md text-white flex items-center justify-center hover:bg-black/60 transition-colors border border-white/10" id="prev" aria-label="Foto sebelumnya"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+                
+                <button class="absolute top-[45%] -translate-y-1/2 right-2 sm:right-4 w-10 h-10 rounded-full bg-black/40 backdrop-blur-md text-white flex items-center justify-center hover:bg-black/60 transition-colors border border-white/10" id="next" aria-label="Foto berikutnya"><svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+                
+                <!-- Dots (injected by JS) -->
+                <div class="flex gap-2 justify-center mt-2" id="dots" role="group" aria-label="Pilih foto"></div>
+            </div>
+        </section>
+
+        <!-- Kelebihan Section -->
+        <section aria-labelledby="h-lebih" class="py-12">
+            <div class="text-center mb-10">
+                <h2 id="h-lebih" class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Kelebihan Kunota</h2>
+                <p class="text-slate-500 dark:text-slate-400">Dibuat khusus untuk teknisi dan pemilik konter HP.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                
+                <!-- Card 1 (Highlighted) -->
+                <div class="glass-card p-6 rounded-2xl flex gap-4 border-emerald-200 dark:border-emerald-900/50 shadow-sm hover:shadow-md transition-all duration-300">
+                    <div class="shrink-0 w-12 h-12 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-1">Tanpa iklan & pelacak</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Tidak ada iklan/pelacak. Aplikasi tidak meminta akses kamera, kontak, atau lokasi.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2 (Highlighted) -->
+                <div class="glass-card p-6 rounded-2xl flex gap-4 border-brand-200 dark:border-brand-900/50 shadow-sm hover:shadow-md transition-all duration-300">
+                    <div class="shrink-0 w-12 h-12 rounded-xl bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 flex items-center justify-center">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12a10 10 0 0120 0M5.5 12a6.5 6.5 0 0113 0M9 12a3 3 0 016 0"/><path d="M12 12v.01M3 21l18-18"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-1">Online & Offline</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Bisa dipakai tanpa sinyal. Saat online, cadangan dan nota otomatis terkirim.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="glass-card p-6 rounded-2xl flex gap-4 shadow-sm hover:shadow-md transition-all duration-300">
+                    <div class="shrink-0 w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6zM14 3v4h4M9 12h6M9 16h6"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-1">Nota servis lengkap</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Dari kronologi, kerusakan, DP, garansi, PIN, hingga kelengkapan terdata rapi.</p>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="glass-card p-6 rounded-2xl flex gap-4 shadow-sm hover:shadow-md transition-all duration-300">
+                    <div class="shrink-0 w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 9V3h10v6M7 17H5a2 2 0 01-2-2v-4a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2h-2M7 14h10v7H7z"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-1">Cetak & kirim struk</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Cetak via printer Bluetooth, atau kirim nota digital ke pelanggan lewat WhatsApp.</p>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="glass-card p-6 rounded-2xl flex gap-4 shadow-sm hover:shadow-md transition-all duration-300">
+                    <div class="shrink-0 w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 012-2h13v3M3 7v11a2 2 0 002 2h14a2 2 0 002-2V9a1 1 0 00-1-1H5a2 2 0 01-2-1zM16 14h2"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-1">Keuangan & laba</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Kas, saldo, serta laporan periode (harian s.d tahunan) lengkap dengan grafik.</p>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="glass-card p-6 rounded-2xl flex gap-4 shadow-sm hover:shadow-md transition-all duration-300">
+                    <div class="shrink-0 w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l9-5 9 5v8l-9 5-9-5zM3 8l9 5 9-5M12 13v8"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-1">Stok & supplier</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Catat stok dan pantau yang menipis, simpan daftar harga dari berbagai supplier.</p>
+                    </div>
+                </div>
+
+                <!-- Card 7 -->
+                <div class="glass-card p-6 rounded-2xl flex gap-4 shadow-sm hover:shadow-md transition-all duration-300">
+                    <div class="shrink-0 w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-1">Data tetap milik Anda</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Disimpan di HP Anda. Cadangan online dikunci dengan sandi pribadi Anda.</p>
+                    </div>
+                </div>
+
+                <!-- Card 8 -->
+                <div class="glass-card p-6 rounded-2xl flex gap-4 shadow-sm hover:shadow-md transition-all duration-300">
+                    <div class="shrink-0 w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1 1M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1-1"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-1">Nota online pelanggan</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Pelanggan bisa melihat & mengunduh nota lewat tautan selama masa garansi.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Cara Mulai Section -->
+        <section aria-labelledby="h-mulai" class="py-12 border-t border-slate-200 dark:border-slate-800/50">
+            <div class="text-center mb-10">
+                <h2 id="h-mulai" class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Cara mulai</h2>
+                <p class="text-slate-500 dark:text-slate-400">Tiga langkah mudah, sekitar dua menit.</p>
+            </div>
+
+            <div class="relative max-w-2xl mx-auto">
+                <div class="absolute left-8 top-6 bottom-6 w-0.5 bg-slate-200 dark:bg-slate-800"></div>
+                
+                <ul class="relative flex flex-col gap-8">
+                    <!-- Step 1 -->
+                    <li class="flex gap-6 items-start relative">
+                        <div class="shrink-0 w-16 h-16 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 text-white font-bold text-xl flex items-center justify-center shadow-lg border-4 border-slate-50 dark:border-slate-900 relative z-10">1</div>
+                        <div class="glass-card flex-1 p-5 rounded-2xl shadow-sm">
+                            <b class="block text-lg font-bold text-slate-900 dark:text-white mb-1">Minta kode coba</b>
+                            <span class="text-sm text-slate-600 dark:text-slate-400">Ketuk tombol WhatsApp di halaman ini. Kode coba akan dikirim oleh admin kami.</span>
+                        </div>
+                    </li>
+                    <!-- Step 2 -->
+                    <li class="flex gap-6 items-start relative">
+                        <div class="shrink-0 w-16 h-16 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 text-white font-bold text-xl flex items-center justify-center shadow-lg border-4 border-slate-50 dark:border-slate-900 relative z-10">2</div>
+                        <div class="glass-card flex-1 p-5 rounded-2xl shadow-sm">
+                            <b class="block text-lg font-bold text-slate-900 dark:text-white mb-1">Pasang di HP</b>
+                            <span class="text-sm text-slate-600 dark:text-slate-400">Pilih menu "Tambahkan ke Layar Utama" di browser, atau gunakan Kunota langsung dari peramban.</span>
+                        </div>
+                    </li>
+                    <!-- Step 3 -->
+                    <li class="flex gap-6 items-start relative">
+                        <div class="shrink-0 w-16 h-16 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 text-white font-bold text-xl flex items-center justify-center shadow-lg border-4 border-slate-50 dark:border-slate-900 relative z-10">3</div>
+                        <div class="glass-card flex-1 p-5 rounded-2xl shadow-sm">
+                            <b class="block text-lg font-bold text-slate-900 dark:text-white mb-1">Masukkan kode</b>
+                            <span class="text-sm text-slate-600 dark:text-slate-400">Masukkan kode coba, isi identitas toko Anda, lalu mulai kelola nota dengan mudah.</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Paket & Lisensi Section -->
+        <section aria-labelledby="h-paket" class="py-12">
+            <div class="text-center mb-10">
+                <h2 id="h-paket" class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Coba dulu, lisensi kemudian</h2>
+                <p class="text-slate-500 dark:text-slate-400">Info selengkapnya bisa ditanyakan via WhatsApp.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                <!-- Free -->
+                <div class="glass-card rounded-3xl p-8 flex flex-col shadow-sm">
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4">Masa Coba</h3>
+                    <ul class="flex flex-col gap-3 text-sm text-slate-600 dark:text-slate-400 mb-6 flex-1">
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Gratis selama masa coba</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Tersedia untuk maksimal 2 HP</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>5 produk stok (10 pcs per produk)</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Limit 20 pembuatan nota per hari</li>
+                    </ul>
+                </div>
+                
+                <!-- Premium -->
+                <div class="relative bg-gradient-to-b from-brand-500 to-indigo-600 dark:from-brand-600 dark:to-indigo-900 rounded-3xl p-8 flex flex-col shadow-xl text-white transform md:-translate-y-2">
+                    <div class="absolute top-0 right-0 transform translate-x-2 -translate-y-2">
+                        <span class="bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full shadow-md uppercase tracking-wide">Rekomendasi</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Lisensi Toko</h3>
+                    <ul class="flex flex-col gap-3 text-sm text-brand-50 mb-6 flex-1">
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand-200" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Stok, supplier, dan nota <b>Tanpa Batas</b></li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand-200" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Cadangan online & Pulihkan di HP baru</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand-200" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Fitur Cek Nota Online untuk pelanggan</li>
+                        <li class="flex items-center gap-2"><svg class="w-4 h-4 text-brand-200" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Sinkronisasi hingga 5 HP sekaligus</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section aria-labelledby="h-tanya" class="py-12 border-t border-slate-200 dark:border-slate-800/50">
+            <div class="text-center mb-10">
+                <h2 id="h-tanya" class="text-3xl font-bold text-slate-900 dark:text-white mb-2">Pertanyaan umum</h2>
+            </div>
+            
+            <div class="max-w-2xl mx-auto flex flex-col gap-3">
+                <details class="group glass-card rounded-xl shadow-sm [&_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex cursor-pointer items-center justify-between p-5 font-semibold text-slate-900 dark:text-white">
+                        Apakah harus ada internet?
+                        <span class="transition duration-300 group-open:-rotate-180">
+                            <svg fill="none" class="h-5 w-5" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        </span>
+                    </summary>
+                    <div class="px-5 pb-5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Tidak. Setelah dibuka dan dipasang, Kunota bisa dipakai tanpa sinyal. Internet hanya diperlukan untuk mengaktifkan kode, mencadangkan data, dan mengirim nota online.
+                    </div>
+                </details>
+
+                <details class="group glass-card rounded-xl shadow-sm [&_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex cursor-pointer items-center justify-between p-5 font-semibold text-slate-900 dark:text-white">
+                        Di mana data saya disimpan?
+                        <span class="transition duration-300 group-open:-rotate-180">
+                            <svg fill="none" class="h-5 w-5" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        </span>
+                    </summary>
+                    <div class="px-5 pb-5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Di HP Anda sendiri. Disarankan mengunduh cadangan file berkala. Toko berlisensi punya cadangan online yang dikunci sandi buatan Anda (End-to-End Encryption), pembuat aplikasi tidak bisa membacanya.
+                    </div>
+                </details>
+
+                <details class="group glass-card rounded-xl shadow-sm [&_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex cursor-pointer items-center justify-between p-5 font-semibold text-slate-900 dark:text-white">
+                        Bagaimana cara mencetak struk?
+                        <span class="transition duration-300 group-open:-rotate-180">
+                            <svg fill="none" class="h-5 w-5" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        </span>
+                    </summary>
+                    <div class="px-5 pb-5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Struk akan otomatis dibagikan (Share) ke aplikasi printer Bluetooth pihak ketiga yang ada di HP Anda, lalu dicetak dari aplikasi tersebut.
+                    </div>
+                </details>
+                
+                <details class="group glass-card rounded-xl shadow-sm [&_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex cursor-pointer items-center justify-between p-5 font-semibold text-slate-900 dark:text-white">
+                        Bagaimana kalau masa coba habis?
+                        <span class="transition duration-300 group-open:-rotate-180">
+                            <svg fill="none" class="h-5 w-5" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+                        </span>
+                    </summary>
+                    <div class="px-5 pb-5 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Aplikasi terkunci, tetapi data di HP tidak dihapus. Setelah Anda memasukkan kode lisensi, semua data langsung bisa diakses kembali seperti semula.
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <!-- CTA Penutup -->
+        <section class="py-16 text-center" aria-labelledby="h-cta">
+            <h2 id="h-cta" class="text-3xl font-bold text-slate-900 dark:text-white mb-8">Siap mencoba Kunota?</h2>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+                <a class="flex items-center justify-center px-8 py-4 rounded-xl font-bold text-white bg-gradient-to-r from-brand-500 to-indigo-600 shadow-lg hover:shadow-xl hover:opacity-90 transition-all duration-300 w-full" href="#pemuat">Masukkan Kode</a>
+                
+                <a class="flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold bg-white dark:bg-slate-800 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900/50 shadow-sm hover:shadow-md transition-all duration-300 w-full" id="wa-coba2" href="#">
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3L3 11l7 3 3 7zM10 14L21 3"/></svg>
+                    Minta via WA
+                </a>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center text-slate-500 dark:text-slate-400 text-sm py-8 px-5 border-t border-slate-200 dark:border-slate-800/50 relative z-10">
+        <p class="mb-2">Kunota &middot; Nota servis HP, keuangan, dan stok.<br>&copy; 2026 Kunota. Hak cipta dilindungi.</p>
+        <p>Ada pertanyaan? <a id="wa-tanya" href="#" class="text-brand-600 dark:text-brand-400 font-medium hover:underline">Hubungi kami via WhatsApp</a></p>
+    </footer>
+
+    <!-- SCRIPT ORIGINAL BAWAAN KUNOTA UNTUK SLIDER & WHATSAPP -->
+    <script>
+    (function(){
+        var NO="628382829723";
+        function wa(t){return "https://wa.me/"+NO+"?text="+encodeURIComponent(t);}
+        document.getElementById("wa-coba").href=wa("Halo, saya ingin mencoba Kunota. Mohon kirim kode coba untuk toko: ");
+        document.getElementById("wa-coba2").href=wa("Halo, saya ingin mencoba Kunota. Mohon kirim kode coba untuk toko: ");
+        document.getElementById("wa-tanya").href=wa("Halo, saya ingin bertanya tentang Kunota: ");
+        
+        var tr=document.getElementById("track"),sl=tr.children,n=sl.length,dots=document.getElementById("dots"),cur=0,timer=null,user=false;
+        for(var i=0;i<n;i++){
+            (function(i){
+                var b=document.createElement("button");
+                b.type="button";
+                b.setAttribute("aria-label","Foto "+(i+1));
+                b.addEventListener("click",function(){stopAuto();go(i);});
+                dots.appendChild(b);
+            })(i);
+        }
+        function mark(){
+            for(var i=0;i<dots.children.length;i++){
+                dots.children[i].setAttribute("aria-current",String(i===cur));
+            }
+        }
+        function go(i){
+            cur=(i+n)%n;
+            tr.scrollTo({left:sl[cur].offsetLeft-tr.offsetLeft,behavior:"smooth"});
+            mark();
+        }
+        var raf=0;
+        tr.addEventListener("scroll",function(){
+            cancelAnimationFrame(raf);
+            raf=requestAnimationFrame(function(){
+                var w=tr.clientWidth||1;
+                var k=Math.round(tr.scrollLeft/w);
+                if(k!==cur&&k>=0&&k<n){cur=k;mark();}
+            });
+        },{passive:true});
+        
+        document.getElementById("prev").addEventListener("click",function(){stopAuto();go(cur-1);});
+        document.getElementById("next").addEventListener("click",function(){stopAuto();go(cur+1);});
+        tr.addEventListener("keydown",function(e){
+            if(e.key==="ArrowLeft"){stopAuto();go(cur-1);e.preventDefault();}
+            if(e.key==="ArrowRight"){stopAuto();go(cur+1);e.preventDefault();}
+        });
+        ["touchstart","pointerdown","focusin","mouseenter"].forEach(function(ev){
+            tr.addEventListener(ev,stopAuto,{passive:true});
+        });
+        function stopAuto(){
+            user=true;
+            if(timer){clearInterval(timer);timer=null;}
+        }
+        
+        var rm=false;
+        try{rm=window.matchMedia("(prefers-reduced-motion: reduce)").matches;}catch(e){}
+        if(!rm){
+            timer=setInterval(function(){
+                if(!document.getElementById("perkenalan")){clearInterval(timer);return;}
+                if(!user&&!document.hidden)go(cur+1);
+            },5000);
+        }
+        mark();
+    })();
+    </script>
 </div>
+
+<!-- ========================================== -->
+<!-- ELEMEN APLIKASI ORIGINAL (JANGAN DIUBAH) -->
+<!-- ========================================== -->
 <div id="nota-service-app" data-gaya="premium" data-backend="https://script.google.com/macros/s/AKfycbxbl5-8BLc6qtGtv7zT8hxmhqrQAnrh6DPUOuUYTJsB_mx_1d6dEyz3bYnmrjLjJIPf/exec" data-owner-wa="08382829723" data-sw="sw.js" data-enc="a-dd662aad92.bin" data-enc-master="m-bddb8a1f2b.bin"></div>
 <script src="pemuat.js?v=mvxeax71"></script>
-</body></html>
+
+</body>
+</html>
