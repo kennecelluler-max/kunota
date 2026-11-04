@@ -4,6 +4,7 @@ Disallow: /a-*.bin
 Disallow: /m-*.bin
 Disallow: /pemuat.js
 Disallow: /sw.js
+Disallow: /nota/
 Allow: /
 
 # Perayap AI untuk pelatihan atau pengumpulan isi: tidak diizinkan.
