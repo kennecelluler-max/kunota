@@ -137,6 +137,123 @@
             </div>
         </header>
 
+        <!-- Ulasan teknisi: isi diambil dari ulasan.json (diubah manual). Tersembunyi bila kosong. -->
+        <section id="ulasan" aria-labelledby="ul-judul" hidden>
+            <style>
+                #ulasan{font-family:Inter,system-ui,sans-serif;--ul-card:#fff;--ul-ink:#0f172a;--ul-mut:#475569;--ul-faint:#64748b;--ul-line:#e2e8f0;--ul-acc:#0284c7;--ul-star:#e3a008;--ul-field:#f1f5f9;padding:10px 0 6px}
+                @media(prefers-color-scheme:dark){#ulasan{--ul-card:#1e293b;--ul-ink:#f1f5f9;--ul-mut:#cbd5e1;--ul-faint:#94a3b8;--ul-line:#334155;--ul-acc:#38bdf8;--ul-star:#f0b429;--ul-field:#0f172a}}
+                #ulasan .ul-kepala{text-align:center;margin-bottom:12px}
+                #ulasan h2{margin:0;font-size:20px;line-height:1.25;font-weight:700;letter-spacing:-.01em;color:var(--ul-ink)}
+                #ulasan .ul-pengantar{margin:4px auto 0;max-width:22rem;font-size:12.5px;line-height:1.45;color:var(--ul-mut)}
+                #ulasan .ul-jalur{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:4px 16px 14px;-ms-overflow-style:none;scrollbar-width:none}
+                #ulasan .ul-jalur::-webkit-scrollbar{display:none}
+                #ulasan .ul-kartu{margin:0;flex:none;width:min(258px,78vw);box-sizing:border-box;scroll-snap-align:start;background:var(--ul-card);border:1px solid var(--ul-line);border-radius:18px;padding:15px;box-shadow:0 1px 2px rgba(15,23,42,.05),0 8px 22px rgba(15,23,42,.07);display:flex;flex-direction:column;gap:10px}
+                #ulasan .ul-nilai{display:flex;align-items:center;gap:5px;font-size:13px;font-weight:700;color:var(--ul-ink)}
+                #ulasan .ul-nilai svg{width:14px;height:14px;fill:var(--ul-star)}
+                #ulasan .ul-isi{margin:0;font-size:13.5px;line-height:1.55;color:var(--ul-ink);display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;flex:1}
+                #ulasan .ul-nama{display:flex;align-items:center;gap:10px;border-top:1px solid var(--ul-line);padding-top:10px;min-width:0}
+                #ulasan .ul-avatar{flex:none;width:32px;height:32px;border-radius:50%;color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center}
+                #ulasan .ul-nama b{display:block;font-size:13px;font-weight:600;line-height:1.2;color:var(--ul-ink)}
+                #ulasan .ul-nama span.ul-usaha{display:block;font-size:11.5px;line-height:1.25;color:var(--ul-faint);margin-top:1px}
+                #ulasan .ul-baris{display:flex;align-items:center;justify-content:space-between;padding:0 2px}
+                #ulasan .ul-rata{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--ul-ink)}
+                #ulasan .ul-rata svg{width:14px;height:14px;fill:var(--ul-star)}
+                #ulasan .ul-rata small{font-size:12px;font-weight:400;color:var(--ul-faint)}
+                #ulasan .ul-semua{border:0;background:none;padding:8px 2px;font:inherit;font-size:13px;font-weight:600;color:var(--ul-acc);cursor:pointer}
+                #ul-lembar{position:fixed;inset:0;z-index:60;display:none;align-items:flex-end;justify-content:center;background:rgba(2,6,23,.55);--ul-card:#fff;--ul-ink:#0f172a;--ul-mut:#475569;--ul-faint:#64748b;--ul-line:#e2e8f0;--ul-star:#e3a008;--ul-field:#f1f5f9}
+                @media(prefers-color-scheme:dark){#ul-lembar{--ul-card:#1e293b;--ul-ink:#f1f5f9;--ul-mut:#cbd5e1;--ul-faint:#94a3b8;--ul-line:#334155;--ul-star:#f0b429;--ul-field:#0f172a}}
+                #ul-lembar.buka{display:flex}
+                #ul-lembar .ul-panel{width:100%;max-width:560px;max-height:88vh;background:var(--ul-card);color:var(--ul-ink);border-radius:26px 26px 0 0;box-shadow:0 -10px 40px rgba(0,0,0,.28);display:flex;flex-direction:column;overflow:hidden;font-family:Inter,system-ui,sans-serif}
+                #ul-lembar .ul-pegang{width:38px;height:4px;border-radius:2px;background:var(--ul-line);margin:10px auto 4px;flex:none}
+                #ul-lembar .ul-top{flex:none;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:8px 20px 10px}
+                #ul-lembar h3{margin:0;font-size:18px;line-height:1.25;font-weight:700;letter-spacing:-.01em}
+                #ul-lembar .ul-rata{display:flex;align-items:center;gap:6px;margin-top:6px;font-size:13px;font-weight:700}
+                #ul-lembar .ul-rata svg{width:14px;height:14px;fill:var(--ul-star)}
+                #ul-lembar .ul-rata small{font-size:12px;font-weight:400;color:var(--ul-faint)}
+                #ul-lembar .ul-tutup{flex:none;width:34px;height:34px;border-radius:50%;border:0;background:var(--ul-field);color:var(--ul-mut);cursor:pointer;display:flex;align-items:center;justify-content:center}
+                #ul-lembar .ul-tutup svg{width:12px;height:12px;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;fill:none}
+                #ul-lembar .ul-daftar{overflow-y:auto;padding:0 20px 24px;-webkit-overflow-scrolling:touch}
+                #ul-lembar .ul-item{padding:15px 0;border-top:1px solid var(--ul-line);display:flex;flex-direction:column;gap:8px}
+                #ul-lembar .ul-ihead{display:flex;align-items:center;gap:10px}
+                #ul-lembar .ul-avatar{flex:none;width:32px;height:32px;border-radius:50%;color:#fff;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center}
+                #ul-lembar .ul-ihead>div:not(.ul-avatar){flex:1;min-width:0}
+                #ul-lembar .ul-ihead b{display:block;font-size:13px;font-weight:600;line-height:1.2}
+                #ul-lembar .ul-ihead span.ul-usaha{display:block;font-size:11.5px;color:var(--ul-faint);margin-top:1px}
+                #ul-lembar .ul-in{display:flex;align-items:center;gap:4px;font-size:12.5px;font-weight:700}
+                #ul-lembar .ul-in svg{width:13px;height:13px;fill:var(--ul-star)}
+                #ul-lembar .ul-teks{margin:0;font-size:13.5px;line-height:1.55}
+            </style>
+            <div class="ul-kepala">
+                <h2 id="ul-judul"></h2>
+                <p class="ul-pengantar" id="ul-pengantar"></p>
+            </div>
+            <div class="ul-jalur" id="ul-jalur" tabindex="0" aria-label="Ulasan teknisi, geser ke samping"></div>
+            <div class="ul-baris">
+                <span class="ul-rata" id="ul-rata"></span>
+                <button type="button" class="ul-semua" id="ul-semua">Lihat semua</button>
+            </div>
+        </section>
+        <div id="ul-lembar" role="dialog" aria-modal="true" aria-labelledby="ul-lj" hidden>
+            <div class="ul-panel">
+                <div class="ul-pegang"></div>
+                <div class="ul-top">
+                    <div><h3 id="ul-lj"></h3><div class="ul-rata" id="ul-lrata"></div></div>
+                    <button type="button" class="ul-tutup" id="ul-tutup" aria-label="Tutup"><svg viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+                </div>
+                <div class="ul-daftar" id="ul-daftar"></div>
+            </div>
+        </div>
+        <script>
+        /* Ulasan teknisi: baca ulasan.json. Hanya teks biasa yang dipasang (aman). Bila gagal atau kosong, bagian ini tetap tersembunyi. */
+        (function () {
+            var D = document, WARNA = ["#0B6E99", "#2F7D4F", "#8A5A00", "#6B4FA0", "#B0453A", "#2A7F86", "#5B6B2E", "#9A4F7A", "#3F5FA8", "#7A5C3A"];
+            var STAR = "M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z";
+            function e(tag, cls, txt) { var x = D.createElement(tag); if (cls) x.className = cls; if (txt != null) x.textContent = txt; return x; }
+            function bintang() { var s = D.createElementNS("http://www.w3.org/2000/svg", "svg"), p = D.createElementNS("http://www.w3.org/2000/svg", "path"); s.setAttribute("viewBox", "0 0 24 24"); s.setAttribute("aria-hidden", "true"); p.setAttribute("d", STAR); s.appendChild(p); return s; }
+            function koma(n) { return (Math.round(n * 10) / 10).toFixed(1).replace(".", ","); }
+            function titik(n) { return (Math.round(n * 10) / 10).toFixed(1); }
+            function rata(box, avg, jml) { box.textContent = ""; box.appendChild(bintang()); box.appendChild(e("span", null, koma(avg))); box.appendChild(e("small", null, "dari " + jml + " teknisi")); }
+            function avatar(nama, i) { var a = e("div", "ul-avatar", (nama.trim().charAt(0) || "?").toUpperCase()); a.style.background = WARNA[i % WARNA.length]; return a; }
+            function pasang(d) {
+                var a = (d && Array.isArray(d.ulasan) ? d.ulasan : []).filter(function (u) { return u && u.nama && u.isi; }).map(function (u) {
+                    var n = parseFloat(u.nilai); return { nama: String(u.nama), usaha: String(u.usaha || ""), nilai: n >= 0 && n <= 5 ? n : 5, isi: String(u.isi) };
+                });
+                if (!a.length) return;
+                var sec = D.getElementById("ulasan"), lembar = D.getElementById("ul-lembar");
+                D.getElementById("ul-judul").textContent = D.getElementById("ul-lj").textContent = String(d.judul || "Apa Kata Teknisi Tentang Kunota?");
+                var p = D.getElementById("ul-pengantar"); p.textContent = String(d.pengantar || ""); p.hidden = !d.pengantar;
+                var avg = a.reduce(function (s, u) { return s + u.nilai; }, 0) / a.length;
+                rata(D.getElementById("ul-rata"), avg, a.length); rata(D.getElementById("ul-lrata"), avg, a.length);
+                var jalur = D.getElementById("ul-jalur"), daftar = D.getElementById("ul-daftar");
+                a.forEach(function (u, i) {
+                    var k = e("figure", "ul-kartu"); k.style.margin = "";
+                    var n = e("div", "ul-nilai"); n.appendChild(bintang()); n.appendChild(e("span", null, titik(u.nilai)));
+                    var o = e("div", "ul-nama"), t = e("div"); t.appendChild(e("b", null, u.nama)); t.appendChild(e("span", "ul-usaha", u.usaha));
+                    o.appendChild(avatar(u.nama, i)); o.appendChild(t);
+                    k.appendChild(n); k.appendChild(e("blockquote", "ul-isi", "“" + u.isi + "”")); k.appendChild(o);
+                    jalur.appendChild(k);
+                    var it = e("div", "ul-item"), h = e("div", "ul-ihead"), t2 = e("div"), in2 = e("span", "ul-in");
+                    t2.appendChild(e("b", null, u.nama)); t2.appendChild(e("span", "ul-usaha", u.usaha));
+                    in2.appendChild(bintang()); in2.appendChild(e("span", null, titik(u.nilai)));
+                    h.appendChild(avatar(u.nama, i)); h.appendChild(t2); h.appendChild(in2);
+                    it.appendChild(h); it.appendChild(e("p", "ul-teks", "“" + u.isi + "”"));
+                    daftar.appendChild(it);
+                });
+                [].forEach.call(jalur.querySelectorAll("blockquote"), function (b) { b.style.margin = "0"; });
+                [].forEach.call(jalur.querySelectorAll("figure"), function (b) { b.style.margin = ""; });
+                var fokus = null;
+                function buka() { fokus = D.activeElement; lembar.hidden = false; lembar.classList.add("buka"); D.documentElement.style.overflow = "hidden"; D.getElementById("ul-tutup").focus(); }
+                function tutup() { lembar.classList.remove("buka"); lembar.hidden = true; D.documentElement.style.overflow = ""; if (fokus && fokus.focus) fokus.focus(); }
+                D.getElementById("ul-semua").addEventListener("click", buka);
+                D.getElementById("ul-tutup").addEventListener("click", tutup);
+                lembar.addEventListener("click", function (ev) { if (ev.target === lembar) tutup(); });
+                D.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && lembar.classList.contains("buka")) tutup(); });
+                sec.hidden = false;
+            }
+            try { fetch("ulasan.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : null; }).then(pasang).catch(function () {}); } catch (x) {}
+        })();
+        </script>
+
         <!-- Slider Section -->
         <section aria-labelledby="h-foto" class="py-4">
             <div class="text-center mb-3">
