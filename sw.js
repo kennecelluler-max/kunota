@@ -1,6 +1,6 @@
 // Nota Service - cache agar halaman bisa dibuka tanpa internet.
-const CACHE='nota-service-mwii9nuw';
-const FILES=['./','index.html','pemuat.js?v=mwii9nuw','a-57a6b89292.bin','m-6b05c0e0a0.bin','manifest.webmanifest','icon-192.png','icon-512.png','favicon.png','apple-touch-icon.png'];
+const CACHE='nota-service-mwjt69u7';
+const FILES=['./','index.html','pemuat.js?v=mwjt69u7','a-af20bb0f56.bin','m-93889307ab.bin','manifest.webmanifest','icon-192.png','icon-512.png','favicon.png','apple-touch-icon.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==CACHE&&k.startsWith('nota-service-')).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 self.addEventListener('fetch',e=>{
@@ -12,3 +12,4 @@ self.addEventListener('fetch',e=>{
     return hit||net.then(res=>res||new Response('Sedang offline dan halaman belum tersimpan.',{status:503,headers:{'content-type':'text/plain;charset=utf-8'}}));
   }));
 });
+
