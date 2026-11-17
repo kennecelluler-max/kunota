@@ -53,19 +53,20 @@ ol b{color:var(--ink)}
 
   <section class="card" id="kartu-utama">
     <h2 id="judul">Pasang Kunota di HP Anda</h2>
-    <p id="teks">Dipasang seperti aplikasi biasa: ada ikon di layar HP, tampil layar penuh, dan tetap bisa dibuka saat sinyal hilang.</p>
+    <p id="teks">Kunota dipakai dari ikon di layar HP: tampil layar penuh dan tetap bisa dibuka saat sinyal hilang. Pasang sekali saja.</p>
     <button class="btn pri" id="tbl-pasang" hidden>Pasang Kunota</button>
     <a class="btn pri" id="tbl-buka" href="../" hidden>Buka Kunota</a>
-    <p class="ok" id="tbl-ok" hidden>Kunota sedang dipasang. Setelah selesai, buka dari ikon di layar HP.</p>
+    <p class="ok" id="tbl-ok" hidden>Kunota sedang dipasang. Setelah selesai, buka dari ikon di layar HP lalu masukkan kode Anda.</p>
     <ul class="pts" id="poin">
       <li>Gratis dicoba, tanpa unduh dari toko aplikasi</li>
       <li>Data nota tersimpan di HP Anda sendiri</li>
+      <li>Pembaruan otomatis saat HP terhubung internet, tidak perlu pasang ulang</li>
     </ul>
   </section>
 
   <section class="card" id="kartu-chrome" hidden>
     <h2>Buka dengan Chrome dulu</h2>
-    <p>Link ini terbuka di peramban yang tidak bisa memasang aplikasi. Ketuk tombol di bawah, nanti Chrome terbuka dan tombol Pasang muncul.</p>
+    <p>Link ini terbuka di peramban yang tidak bisa memasang aplikasi. Ketuk tombol di bawah, nanti Chrome terbuka dan tombol Pasang muncul. Kalau link ini dibuka dari WhatsApp, ketuk titik tiga lalu pilih Buka di Chrome.</p>
     <a class="btn pri" id="tbl-chrome" href="#">Buka di Chrome</a>
     <p class="small">Kalau Chrome tidak terbuka, salin link ini lalu tempel di Chrome:<br><b id="alamat"></b></p>
   </section>
@@ -75,7 +76,7 @@ ol b{color:var(--ink)}
     <ol>
       <li>Ketuk menu <b>&#8942;</b> (tiga titik) di Chrome.</li>
       <li>Pilih <b>Instal aplikasi</b> (atau <b>Tambahkan ke layar utama</b>).</li>
-      <li>Ketuk <b>Instal</b>, lalu buka Kunota dari ikon di layar HP.</li>
+      <li>Ketuk <b>Instal</b>, lalu buka Kunota dari ikon di layar HP dan masukkan kode Anda.</li>
     </ol>
   </section>
 
@@ -85,7 +86,7 @@ ol b{color:var(--ink)}
       <li id="ios-safari" hidden>Buka link ini di <b>Safari</b> (salin link lalu tempel di Safari).</li>
       <li>Ketuk tombol <b>Bagikan</b> (kotak dengan panah ke atas) di bawah layar.</li>
       <li>Pilih <b>Tambah ke Layar Utama</b>, lalu ketuk <b>Tambah</b>.</li>
-      <li>Buka Kunota dari ikon di layar HP.</li>
+      <li>Buka Kunota dari ikon di layar HP, lalu masukkan kode Anda. Di iPhone, kode perlu dimasukkan lagi dari ikon.</li>
     </ol>
   </section>
 
@@ -110,13 +111,14 @@ ol b{color:var(--ink)}
   var host=location.host+location.pathname+location.search;
   $("tbl-chrome").href="intent://"+host+"#Intent;scheme="+location.protocol.replace(":","")+";package=com.android.chrome;S.browser_fallback_url="+encodeURIComponent(alamat)+";end";
 
+  if(ios||android){$("tbl-langsung").parentNode.hidden=true;} // di HP, aplikasi hanya dipakai dari ikon terpasang
   function semua(){["kartu-chrome","kartu-manual-android","kartu-ios","kartu-desktop","tbl-pasang","tbl-buka","tbl-ok"].forEach(function(i){$(i).hidden=true;});}
   function tampil(){
     semua();
     if(standalone||terpasang){
       $("judul").textContent="Kunota sudah terpasang";
       $("teks").textContent="Aplikasi sudah ada di HP ini.";
-      $("poin").hidden=true;$("tbl-buka").hidden=false;$("tbl-langsung").parentNode.hidden=true;return;
+      $("poin").hidden=true;$("tbl-buka").hidden=false;$("tbl-langsung").parentNode.hidden=true;$("teks").textContent="Aplikasi sudah ada di HP ini. Buka dari ikon di layar HP, lalu masukkan kode Anda.";return;
     }
     if(evt){$("tbl-pasang").hidden=false;return;}
     if(ios){
@@ -149,3 +151,4 @@ ol b{color:var(--ink)}
 })();
 </script>
 </body></html>
+
